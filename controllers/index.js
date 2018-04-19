@@ -13,11 +13,16 @@ exports.activateBot = (req, res, next) => {
       return watProm(tweetText);
     })
     .then(understanding => {
-      writeTweets(req.params.username, moreUnderstanding(understanding)).then();
+      writeTweets(req.params.username, moreUnderstanding(understanding))
+    })
+    .then(([paulTweet, samTweet]) => {
+      console.log('getting here')
+      res.send({ paulTweet: paulTweet.text, samTweet: samTweet.text });
     })
     .catch(err => {
       err.status = 404;
       err.message = "User does not exist";
+      console.log(err);
       next(err);
     });
 };
