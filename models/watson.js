@@ -9,7 +9,7 @@ const natLanguage = new NaturalLanguageUnderstandingV1({
   version: "2018-03-16"
 });
 
-const getInsights = (tweetString, cb) => {
+exports.watProm = (tweetString) => {
   const parameters = {
     text: tweetString,
     features: {
@@ -24,11 +24,12 @@ const getInsights = (tweetString, cb) => {
       },
       concepts: {},
       emotion: {}
-      // relations: {},
-      // sentiment: {}
     }
   };
-  natLanguage.analyze(parameters, cb);
-};
-
-exports.watProm = util.promisify(getInsights);
+  return new Promise((resolve, reject) => {
+    natLanguage.analyze(parameters, (err, data) => {
+      if (err) reject(err);
+      resolve(data);
+    });
+  })
+}

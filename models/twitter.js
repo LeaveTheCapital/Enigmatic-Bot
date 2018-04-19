@@ -16,20 +16,13 @@ const T = new Twit({
   timeout_ms: 60 * 1000 // optional HTTP request timeout to apply to all requests.
 });
 
-function twitGet(user, cb) {
-  T.get("statuses/user_timeline", { screen_name: user, count: 50 }, function(
-    err,
-    data,
-    response
-  ) {
-    cb(null, data);
-  });
+const fetchTweets = (user) => {
+  return new Promise((resolve, reject) => {
+    T.get("statuses/user_timeline", { screen_name: user, count: 50 }, (err, data) => {
+      if (err) reject(err);
+      resolve(data);
+    })
+  })
 }
-
-const twitProm = util.promisify(twitGet);
-
-fetchTweets = user => {
-  return twitProm(user);
-};
 
 module.exports = fetchTweets;
