@@ -9,7 +9,7 @@ const natLanguage = new NaturalLanguageUnderstandingV1({
   version: "2018-03-16"
 });
 
-exports.watProm = (tweetString) => {
+exports.watProm = tweetString => {
   const parameters = {
     text: tweetString,
     features: {
@@ -31,5 +31,5 @@ exports.watProm = (tweetString) => {
       if (err) reject(err);
       resolve(data);
     });
-  })
-}
+  });
+};
