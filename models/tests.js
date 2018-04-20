@@ -40,7 +40,7 @@ exports.testWriteTweets = (username, insights) => {
   //     //Paul post
   //     T.post("statuses/update", { status: "hiayayayaya" }, (err, data) => {
   //       if (err) reject(err);
-  //       resolve(data.text);
+  //       resolve({data.text, data.url});
   //     });
   //   });
   // };
@@ -84,10 +84,10 @@ function constructPaulTweet(insights) {
       } else {
         const handleArr = [
           `I'd love to grab a drink with you and ${
-            entity.text
+          entity.text
           } sometime soon! `,
           `You and ${
-            entity.text
+          entity.text
           } have a great bond - that's heart-warming to see. Cool. `
         ];
         snip += handleArr[Math.floor(Math.random() * 2)];
@@ -97,7 +97,7 @@ function constructPaulTweet(insights) {
     } else {
       snip += `${
         entity.text
-      } is pretty hip happenin' and you're cool for talking about it`;
+        } is pretty hip happenin' and you're cool for talking about it`;
     }
     return snip;
   }
@@ -123,7 +123,7 @@ function constructPaulTweet(insights) {
       case keyword.sentiment < 0:
         snip += [
           `Sorry about ${
-            keyword.text
+          keyword.text
           }, keep your chin up, we all still care about you :) `,
           `I agree, ${keyword.text} really isn't that cool. `
         ][Math.floor(Math.random() * 2)];
@@ -171,7 +171,7 @@ function constructSamTweet(insights) {
       } else {
         const handleArr = [
           `You and ${
-            entity.text
+          entity.text
           } need to get a room and take it somewhere else! `,
           `${entity.text} doesn't even like you, stop bothering them. `
         ];
@@ -182,7 +182,7 @@ function constructSamTweet(insights) {
     } else {
       snip += `${
         entity.text
-      } is pretty hip happenin' and you're cool for talking about it`;
+        } is pretty hip happenin' and you're cool for talking about it`;
     }
     return snip;
   }
@@ -208,7 +208,7 @@ function constructSamTweet(insights) {
       case keyword.sentiment < 0:
         snip += [
           `Sorry about ${
-            keyword.text
+          keyword.text
           }, keep your chin up, we all still care about you :) `,
           `I agree, ${keyword.text} really isn't that cool. `
         ][Math.floor(Math.random() * 2)];
