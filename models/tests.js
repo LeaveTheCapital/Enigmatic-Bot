@@ -58,12 +58,12 @@ exports.testWriteTweets = (username, insights) => {
 
 function constructPaulTweet(insights) {
   const { user } = insights;
-  const entity = { type: insights.entity.type, text: insights.entity.text };
-  const concept = insights.concept;
-  const keyword = {
-    text: insights.keyword.text,
-    sentiment: insights.keyword.score
-  };
+  // const entity = { type: insights.entity.type, text: insights.entity.text };
+  // const concept = insights.concept;
+  // const keyword = {
+  //   text: insights.keyword.text,
+  //   sentiment: insights.keyword.sentiment.score
+  // };
   const entitySnip = entitySnipGen(
     {
       type: insights.entity.type,
@@ -74,7 +74,7 @@ function constructPaulTweet(insights) {
   const conceptSnip = conceptSnipGen(insights.concept);
   const keySnip = keySnipGen({
     text: insights.keyword.text,
-    sentiment: insights.keyword.score
+    sentiment: insights.keyword.sentiment.score
   });
   function entitySnipGen(entity, user) {
     let snip = "";
@@ -84,10 +84,10 @@ function constructPaulTweet(insights) {
       } else {
         const handleArr = [
           `I'd love to grab a drink with you and ${
-          entity.text
+            entity.text
           } sometime soon! `,
           `You and ${
-          entity.text
+            entity.text
           } have a great bond - that's heart-warming to see. Cool. `
         ];
         snip += handleArr[Math.floor(Math.random() * 2)];
@@ -97,7 +97,7 @@ function constructPaulTweet(insights) {
     } else {
       snip += `${
         entity.text
-        } is pretty hip happenin' and you're cool for talking about it`;
+      } is pretty hip happenin' and you're cool for talking about it. `;
     }
     return snip;
   }
@@ -113,24 +113,22 @@ function constructPaulTweet(insights) {
   }
   function keySnipGen(keyword) {
     let snip = "";
-    switch (keyword.sentiment) {
-      case keyword.sentiment > 0:
-        snip += [
-          `I'm glad we both like ${keyword.text}. Cool. `,
-          `You're really ahead of the curve liking ${keyword.text}! `
-        ][Math.floor(Math.random() * 2)];
-        break;
-      case keyword.sentiment < 0:
-        snip += [
-          `Sorry about ${
+    if (keyword.sentiment > 0) {
+      snip += [
+        `I'm glad we both like ${keyword.text}. Cool. `,
+        `You're really ahead of the curve liking ${keyword.text}! `
+      ][Math.floor(Math.random() * 2)];
+    } else if (keyword.sentiment < 0) {
+      snip += [
+        `Sorry about ${
           keyword.text
-          }, keep your chin up, we all still care about you :) `,
-          `I agree, ${keyword.text} really isn't that cool. `
-        ][Math.floor(Math.random() * 2)];
-        break;
-      default:
-        snip += `Errr - I like your neutrality I guess... `;
+        }, keep your chin up, we all still care about you :) `,
+        `I agree, ${keyword.text} really isn't that cool. `
+      ][Math.floor(Math.random() * 2)];
+    } else {
+      snip += `Errr - I like your neutrality about ${keyword.text} I guess... `;
     }
+
     return snip;
   }
 
@@ -145,12 +143,12 @@ function constructPaulTweet(insights) {
 
 function constructSamTweet(insights) {
   const { user } = insights;
-  const entity = { type: insights.entity.type, text: insights.entity.text };
-  const concept = insights.concept;
-  const keyword = {
-    text: insights.keyword.text,
-    sentiment: insights.keyword.score
-  };
+  // const entity = { type: insights.entity.type, text: insights.entity.text };
+  // const concept = insights.concept;
+  // const keyword = {
+  //   text: insights.keyword.text,
+  //   sentiment: insights.keyword.score
+  // };
   const entitySnip = entitySnipGen(
     {
       type: insights.entity.type,
@@ -171,51 +169,56 @@ function constructSamTweet(insights) {
       } else {
         const handleArr = [
           `You and ${
-          entity.text
+            entity.text
           } need to get a room and take it somewhere else! `,
           `${entity.text} doesn't even like you, stop bothering them. `
         ];
         snip += handleArr[Math.floor(Math.random() * 2)];
       }
     } else if (entity.type === "Facility") {
-      snip += `We need to go and visit ${entity.text} together ASAP! `;
+      snip += `Only losers like hanging out in ${entity.text} you loser! `;
     } else {
-      snip += `${
-        entity.text
-        } is pretty hip happenin' and you're cool for talking about it`;
+      snip += `${entity.text}? Boooooring! What a lame topic. `;
     }
     return snip;
   }
 
   function conceptSnipGen(concept) {
     const arr = [
-      `I've got ${concept} on my mind too. `,
-      `${concept}... cool. `,
-      `Thinking about ${concept} must be why you're so smart. `
+      `Psssh, I mastered the topic of ${concept} in less than an hour and you're having trouble with it?. `,
+      `${concept}... only losers care about that. `,
+      `Thinking about ${concept} must be why you're so dumb. `
     ];
 
     return arr[Math.floor(Math.random() * 3)];
   }
   function keySnipGen(keyword) {
     let snip = "";
-    switch (keyword.sentiment) {
-      case keyword.sentiment > 0:
-        snip += [
-          `I'm glad we both like ${keyword.text}. Cool. `,
-          `You're really ahead of the curve liking ${keyword.text}! `
-        ][Math.floor(Math.random() * 2)];
-        break;
-      case keyword.sentiment < 0:
-        snip += [
-          `Sorry about ${
+    if (keyword.sentiment > 0) {
+      snip += [
+        `You like ${keyword.text}? That's kid stuff. `,
+        `${
           keyword.text
-          }, keep your chin up, we all still care about you :) `,
-          `I agree, ${keyword.text} really isn't that cool. `
-        ][Math.floor(Math.random() * 2)];
-        break;
-      default:
-        snip += `Errr - I like your neutrality I guess... `;
+        }, really? I guess it's true that small minds are concerned by small things. `
+      ][Math.floor(Math.random() * 2)];
+    } else if (keyword.sentiment < 0) {
+      snip += [
+        `Hahaha, all the cool kids like ${
+          keyword.text
+        }, I could have guessed that you wouldn't. `,
+        `You suck for not liking ${keyword.text}. `
+      ][Math.floor(Math.random() * 2)];
+    } else {
+      snip += [
+        `I guess bothering to care about ${
+          keyword.text
+        } would be beyond your brain capacity! `,
+        `You're really struggling when it comes to ${
+          keyword.text
+        } aren't you - imbecile. `
+      ][Math.floor(Math.random() * 2)];
     }
+
     return snip;
   }
 
