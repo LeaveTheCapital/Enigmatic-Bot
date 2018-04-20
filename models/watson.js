@@ -1,4 +1,7 @@
-const { url, username, password } = require("../config");
+// const { url, username, password } = require("../config");
+const url = process.env.watUrl;
+const username = process.env.watName;
+const password = process.env.watPass;
 
 const util = require("util");
 

@@ -1,11 +1,16 @@
 const Twit = require("twit");
 
-const {
-  consumer,
-  consumerSecret,
-  accessToken,
-  accessTokenSecret
-} = require("../config/twitter");
+// const {
+//   consumer,
+//   consumerSecret,
+//   accessToken,
+//   accessTokenSecret
+// } = require("../config/twitter");
+
+const consumer = process.env.cons;
+const consumerSecret = process.env.consec;
+const accessToken = process.env.acc;
+const accessTokenSecret = process.env.accsec;
 
 const T = new Twit({
   consumer_key: consumer,
