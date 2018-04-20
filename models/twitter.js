@@ -29,6 +29,8 @@ exports.fetchTweets = user => {
 };
 
 exports.writeTweets = (username, insights) => {
+  console.log('insights... : ', insights.concept[0])
+
   const keyRand = Math.random();
   //Make Paul tweet
   const paulObj = { user: "@" + username };
@@ -51,7 +53,8 @@ exports.writeTweets = (username, insights) => {
   const paulPromise = () => {
     return new Promise((resolve, reject) => {
       //Paul post
-      T.post("statuses/update", { status: paulTweet }, (err, data) => {
+      T.post("statuses/update", { status: 'hiayayayaya' }, (err, data) => {
+        console.log(err);
         if (err) reject(err);
         resolve(data.text);
       });
@@ -60,13 +63,13 @@ exports.writeTweets = (username, insights) => {
   const samPromise = () => {
     return new Promise((resolve, reject) => {
       //Sam post
-      T.post("statuses/update", { status: samTweet }, (err, data) => {
+      T.post("statuses/update", { status: 'hahahahahah' }, (err, data) => {
         if (err) reject(err);
         resolve(data.text);
       });
     });
   };
-
+  console.log('getting here')
   return Promise.all([paulPromise(), samPromise()]);
 };
 
@@ -82,11 +85,11 @@ function constructPaulTweet(insights) {
   tweet += `Hey ${user}, `;
   tweet += `I'd love to grab a drink with you and ${
     entity.text
-  } sometime soon! `;
+    } sometime soon! `;
   tweet += `I've got ${concept} on my mind too. `;
   tweet += `Sorry about ${
     keyword.text
-  }, ... never forget that there are people out there who care about you. :^)`;
+    }, ... never forget that there are people out there who care about you. :^)`;
   return tweet;
 }
 

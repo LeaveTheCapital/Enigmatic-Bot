@@ -3,28 +3,34 @@ const { fetchTweets, writeTweets } = require("../models/twitter");
 const { watProm } = require("../models/watson");
 
 exports.activateBot = (req, res, next) => {
-  const noTweetError = new Error("No tweets");
-  fetchTweets(req.params.username)
-    .then(tweets => {
-      if (tweets.length === 0) {
-        throw noTweetError;
-      } else return cleanTweets(tweets);
-    })
-    .then(tweetText => {
-      return watProm(tweetText);
-    })
-    .then(understanding => {
-      return writeTweets(req.params.username, moreUnderstanding(understanding));
-    })
-    .then(([tweetsP, tweetsS]) => {
-      const tweets = { 1: tweetsP, 2: tweetsS };
-      res.send(tweets);
-    })
-    .catch(err => {
-      if (err === noTweetError) {
-        next({ status: 400, message: "No Tweets Found" });
-      } else next({ status: 404, message: "Twitter User Not Found" });
-    });
+  if (Object.keys(req.query).length === 0) {
+    res.render('pages/index.ejs')
+  } else {
+    const noTweetError = new Error("No tweets");
+    fetchTweets(req.query.username)
+      .then(tweets => {
+        if (tweets.length === 0) {
+          throw noTweetError;
+        } else return cleanTweets(tweets);
+      })
+      .then(tweetText => {
+        return watProm(tweetText);
+      })
+      .then(understanding => {
+
+        return writeTweets(req.query.username, moreUnderstanding(understanding));
+      })
+      .then(([tweetsP, tweetsS]) => {
+        console.log(tweetsP, tweetsS)
+        const resultsInfo = { paul: tweetsP, sam: tweetsS, username: req.query.username };
+        res.render('pages/results.ejs', resultsInfo);
+      })
+      .catch(err => {
+        if (err === noTweetError) {
+          next({ status: 400, message: "No Tweets Found" });
+        } else next({ status: 404, message: "Twitter User Not Found" });
+      });
+  }
 };
 
 exports.testWatson = (req, res, next) => {
