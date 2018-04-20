@@ -1,3 +1,10 @@
+
+body {
+  background-color: blanchedalmond;
+  color: rgba(0, 0, 0, 0.664);
+  
+}
+
 .moving_bar {
   background-color: red;
   background-image: linear-gradient(to right,
