@@ -51,24 +51,23 @@ exports.writeTweets = (username, insights) => {
   const paulPromise = () => {
     return new Promise((resolve, reject) => {
       //Paul post
-      T.post('statuses/update', { status: paulTweet }, (err, data, response) => {
-        console.log(data);
+      T.post("statuses/update", { status: paulTweet }, (err, data) => {
         if (err) reject(err);
-        resolve(data);
+        resolve(data.text);
       });
-    })
-  }
+    });
+  };
   const samPromise = () => {
     return new Promise((resolve, reject) => {
       //Sam post
-      T.post('statuses/update', { status: samTweet }, (err, data, response) => {
+      T.post("statuses/update", { status: samTweet }, (err, data) => {
         if (err) reject(err);
-        resolve(data);
+        resolve(data.text);
       });
-    })
-  }
-  return Promise.all([paulPromise(), samPromise()])
+    });
+  };
 
+  return Promise.all([paulPromise(), samPromise()]);
 };
 
 function constructPaulTweet(insights) {
@@ -83,9 +82,11 @@ function constructPaulTweet(insights) {
   tweet += `Hey ${user}, `;
   tweet += `I'd love to grab a drink with you and ${
     entity.text
-    } sometime soon! `;
+  } sometime soon! `;
   tweet += `I've got ${concept} on my mind too. `;
-  tweet += `Sorry about ${keyword.text}, ... never forget that there are people out there who care about you. :-_)`;
+  tweet += `Sorry about ${
+    keyword.text
+  }, ... never forget that there are people out there who care about you. :^)`;
   return tweet;
 }
 
@@ -97,5 +98,5 @@ function constructSamTweet(insights) {
     text: insights.keyword.text,
     sentiment: insights.keyword.score
   };
-  return 'hello world hello schmorld!'
+  return "hello world hello schmorld!";
 }
