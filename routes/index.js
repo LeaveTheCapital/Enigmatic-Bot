@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { activateBot, testWatson } = require("../controllers");
-
+const { activateBot, testInsights } = require("../controllers");
 
 router.get("/", activateBot);
 
-router.get("/test", testWatson);
+router.get("/test", testInsights);
 
 module.exports = router;

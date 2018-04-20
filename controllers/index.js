@@ -1,10 +1,12 @@
 const { fetchTweets, writeTweets } = require("../models/twitter");
 
+const { testWriteTweets } = require("../models/tests");
+
 const { watProm } = require("../models/watson");
 
 exports.activateBot = (req, res, next) => {
   if (Object.keys(req.query).length === 0) {
-    res.render('pages/index.ejs')
+    res.render("pages/index.ejs");
   } else {
     const noTweetError = new Error("No tweets");
     fetchTweets(req.query.username)
@@ -17,13 +19,18 @@ exports.activateBot = (req, res, next) => {
         return watProm(tweetText);
       })
       .then(understanding => {
-
-        return writeTweets(req.query.username, moreUnderstanding(understanding));
+        return writeTweets(
+          req.query.username,
+          moreUnderstanding(understanding)
+        );
       })
       .then(([tweetsP, tweetsS]) => {
-        console.log(tweetsP, tweetsS)
-        const resultsInfo = { paul: tweetsP, sam: tweetsS, username: req.query.username };
-        res.render('pages/results.ejs', resultsInfo);
+        const resultsInfo = {
+          paul: tweetsP,
+          sam: tweetsS,
+          username: req.query.username
+        };
+        res.render("pages/results.ejs", resultsInfo);
       })
       .catch(err => {
         if (err === noTweetError) {
@@ -33,14 +40,34 @@ exports.activateBot = (req, res, next) => {
   }
 };
 
-exports.testWatson = (req, res, next) => {
-  watProm()
-    .then(understanding => {
-      res.send(understanding);
-    })
-    .catch(err => {
-      next(err);
-    });
+exports.testInsights = (req, res, next) => {
+  if (Object.keys(req.query).length === 0) {
+    res.render("pages/index.ejs");
+  } else {
+    const noTweetError = new Error("No tweets");
+    fetchTweets(req.query.username)
+      .then(tweets => {
+        if (tweets.length === 0) {
+          throw noTweetError;
+        } else return cleanTweets(tweets);
+      })
+      .then(tweetText => {
+        return watProm(tweetText);
+      })
+      .then(understanding => {
+        return testWriteTweets(
+          req.query.username,
+          moreUnderstanding(understanding)
+        );
+      })
+      .then(testInfo => res.send(testInfo))
+      .catch(err => {
+        console.log(err);
+        if (err === noTweetError) {
+          next({ status: 400, message: "No Tweets Found" });
+        } else next({ status: 404, message: "Twitter User Not Found" });
+      });
+  }
 };
 
 function moreUnderstanding(und) {
