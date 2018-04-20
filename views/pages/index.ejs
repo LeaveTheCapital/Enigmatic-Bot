@@ -2,31 +2,25 @@
 <html>
 
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Page Title</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" media="screen" href="/main.css" />
+  <%- include("../partials/head.ejs") %>
+    <title>Enigmatic Bot Home</title>
+
 </head>
 
 <body>
   <h1>@Northschmoders: Enigmatic Twitter Bot</h1>
 
   <nav>
-    <a href="/api">Home</a>
+    <a href="/">Home</a>
     |
-    <a href="/api/tweets">Results</a>
+    <a href="/results">Results</a>
   </nav>
   <div>
-    <p>We have created an enigmatic twitter bot called Northschmoders which will tweet to a user of your choice with both a
-      'nice' message and a 'nasty' message based on Natural Language Understanding insights obtained from the tweeter's last
-      100 tweets. To continue, enter the url above as /api/~username~</p>
-    <form method="get">
-      username:
-      <br>
-      <input type="text" name="username">
-      <input type="submit">
-    </form>
+    <p class="mainp">Using IBM's Watson API 'Natural Language Understanding' module, we've created an enigmatic twitter bot which will tweet
+      to a user of your choice with both a 'nice' and a 'nasty' message based on insights obtained from the tweeter's last
+      100 tweets. To try it out, enter a twitter username into this box:</p>
+
+    <%- include("../partials/form.ejs") %>
   </div>
 </body>
 

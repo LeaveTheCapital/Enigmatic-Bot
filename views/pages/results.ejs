@@ -2,11 +2,11 @@
 <html>
 
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Page Title</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" media="screen" href="/main.css" />
+  <title>
+    Results for
+
+  </title>
+
 </head>
 
 <body>
@@ -15,7 +15,7 @@
   <nav>
     <a href="/">Home</a>
     |
-    <a href="/api/results">Results</a>
+    <a href="/results">Results</a>
   </nav>
   <div>
     <p>here are the results for
@@ -26,13 +26,14 @@
     </p>
     <p>
       Paul tweet:
-      <%=paul%>
+      <%=paul %>
     </p>
     <p>
       Sam tweet:
-      <%=sam%>
+      <%=sam %>
     </p>
   </div>
+  <%- include("../partials/form.ejs") %>
 </body>
 
 </html>
