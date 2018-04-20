@@ -10,9 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^2.5.9",
     "express": "^4.16.3",
     "twit": "^2.2.9",
-    "twit-promise": "^2.1.0",
     "watson-developer-cloud": "^3.3.0"
   }
 }
