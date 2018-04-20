@@ -60,7 +60,7 @@ exports.testInsights = (req, res, next) => {
           moreUnderstanding(understanding)
         );
       })
-      .then(testInfo => res.send(testInfo))
+      .then(testInfo => res.render('pages/results.ejs', { paul: testInfo.paulTweet, sam: testInfo.samTweet, username: req.query.username }))
       .catch(err => {
         console.log(err);
         if (err === noTweetError) {
