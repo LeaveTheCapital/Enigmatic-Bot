@@ -3,27 +3,27 @@ const { fetchTweets, writeTweets } = require("../models/twitter");
 const { watProm } = require("../models/watson");
 
 exports.activateBot = (req, res, next) => {
+  const noTweetError = new Error("No tweets");
   fetchTweets(req.params.username)
     .then(tweets => {
-      if (tweets.length === 0)
-        return next({ status: 400, message: "bad request; no tweets found" });
-      return cleanTweets(tweets);
+      if (tweets.length === 0) {
+        throw noTweetError;
+      } else return cleanTweets(tweets);
     })
     .then(tweetText => {
       return watProm(tweetText);
     })
     .then(understanding => {
-      writeTweets(req.params.username, moreUnderstanding(understanding))
+      return writeTweets(req.params.username, moreUnderstanding(understanding));
     })
-    .then(([paulTweet, samTweet]) => {
-      console.log('getting here')
-      res.send({ paulTweet: paulTweet.text, samTweet: samTweet.text });
+    .then(([tweetsP, tweetsS]) => {
+      const tweets = { 1: tweetsP, 2: tweetsS };
+      res.send(tweets);
     })
     .catch(err => {
-      err.status = 404;
-      err.message = "User does not exist";
-      console.log(err);
-      next(err);
+      if (err === noTweetError) {
+        next({ status: 400, message: "No Tweets Found" });
+      } else next({ status: 404, message: "Twitter User Not Found" });
     });
 };
 
