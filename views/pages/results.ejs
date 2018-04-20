@@ -2,34 +2,62 @@
 <html>
 
 <head>
-  <title>
-    Results for
+  <%- include("../partials/head.ejs") %>
+    <title>
+      Results for
 
-  </title>
+    </title>
 
 </head>
 
 <body>
-  <h1>@Northschmoders: Enigmatic Twitter Bot</h1>
-
-  <nav>
-    <a href="/">Home</a>
-    |
-    <a href="/results">Results</a>
-  </nav>
+  <img class="avatar" src="avatar.jpg">
   <div>
-    <p>here are the results for
-      <span class='moving_bar'>
-        <%=username %>
-
-      </span>
+    <p class="resultsIntro">Here are the results
+      <div class="view_port">
+        <div class="message_with_username">
+          <%=username %>
+        </div>
+        <div class='moving_bar'></div>
+      </div>
     </p>
-    <p>
-      <blockquote class="twitter-tweet" data-lang="en">
-        <p lang="in" dir="ltr">hiayayayaya</p>&mdash; northschmoders (@northschmoders)
-        <a href="https://twitter.com/northschmoders/status/987287423242657792?ref_src=twsrc%5Etfw">April 20, 2018</a>
-      </blockquote>
-      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> Paul tweet:
+
+    <div class="tweetBox">
+      <div class="tweetTitle">Northschmoder Paul's Tweet</div>
+      <div class="tweetTitle">Northschmoder Sam's Tweet</div>
+      <div>
+
+        <blockquote class="twitter-tweet" data-lang="en">
+          <p lang="en" dir="ltr">Hey
+            <a href="https://twitter.com/realDonaldTrump?ref_src=twsrc%5Etfw">@realDOnaldtrump</a>, You and Shadey James Comey have a great bond - that&#39;s heart-warming to see. Cool. Thinking
+            about Bashar al-Assad must be why you&#39;re so smart. Sorry about Failing New York, keep your chin up, we all
+            still care about you :) -Paul</p>&mdash; northschmoders (@northschmoders)
+          <a href="https://twitter.com/northschmoders/status/987354081432875014?ref_src=twsrc%5Etfw">April 20, 2018</a>
+        </blockquote>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+      </div>
+
+      <div>
+
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+        <blockquote class="twitter-tweet" data-lang="en">
+          <p lang="en" dir="ltr">Hey
+            <a href="https://twitter.com/realDonaldTrump?ref_src=twsrc%5Etfw">@realDOnaldtrump</a>, You and Prime Minister Abe need to get a room and take it somewhere else! Thinking about
+            Russia must be why you&#39;re so dumb. I guess bothering to care about host tax event would be beyond your brain
+            capacity! -Sam</p>&mdash; northschmoders (@northschmoders)
+          <a href="https://twitter.com/northschmoders/status/987354081411977216?ref_src=twsrc%5Etfw">April 20, 2018</a>
+        </blockquote>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      </div>
+
+    </div>
+
+    <p> Paul tweet:
       <%=paul %>
     </p>
     <p>

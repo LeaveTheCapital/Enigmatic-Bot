@@ -1,9 +1,41 @@
-
 body {
+  background-image: url("https://res.cloudinary.com/http-northcoders-com/image/upload/v1504341388/learn_to_code_manchester_leeds_liverpool_sheffield_r2_o39zrr.jpg");
+  background-size: cover;
+  background-position: cover;
+  background-repeat: no-repeat;
   background-color: blanchedalmond;
-  
 }
 
+h1 {
+}
+
+.resultsIntro {
+  font-size: 3em;
+  text-align: center;
+  color: whitesmoke;
+}
+
+.tweetBox {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-content: space-around;
+}
+
+.tweetTitle {
+  width: 50%;
+  text-align: center;
+  color: whitesmoke;
+}
+
+.avatar {
+  width: 15%;
+  border-radius: 50%;
+  padding: 2em;
+  padding-bottom: 1em;
+  opacity: 0;
+  animation: fade-in-right ease 6s forwards;
+}
 
 .mainp {
   color: green;
@@ -26,21 +58,62 @@ body {
   border-radius: 2%;
 }
 
-
-
-.moving_bar {
-  background-color: red;
-  background-image: linear-gradient(to right,
-      rgba(0, 0, 0, .9) 25%,
-      rgba(0, 0, 0, .1) 50%,
-      rgba(0, 0, 0, .9) 75%);
-      color: white;
-      height: 100%;
-      width: 20%;
-      
-      -webkit-animation: 4s linear 0s infinite alternate move_eye;
-      animation: 4s linear 0s infinite alternate move_eye;
+.view_port {
+  background-color: black;
+  height: 2em;
+  width: 15%;
+  overflow: hidden;
+  border-radius: 2%;
 }
 
-@-webkit-keyframes move_eye { from { margin-left: -20%; } to { margin-left: 100% } }
-  @keyframes move_eye { from { margin-left: -20%; } to { margin-left: 100%; } }
+.message_with_username {
+  color: white;
+  font-size: 1.5em;
+  float: left;
+  margin-right: 2%;
+  padding: 0.4em;
+}
+
+.moving_bar {
+  background-color: rgba(241, 241, 241, 0.9);
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.9) 25%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.9) 75%
+  );
+  color: white;
+  height: 100%;
+  width: 15%;
+
+  -webkit-animation: 4s linear 0s infinite alternate move_eye;
+  animation: 4s linear 0s infinite alternate move_eye;
+}
+
+@-webkit-keyframes move_eye {
+  from {
+    margin-left: -20%;
+  }
+  to {
+    margin-left: 100%;
+  }
+}
+@keyframes move_eye {
+  from {
+    margin-left: -20%;
+  }
+  to {
+    margin-left: 100%;
+  }
+}
+
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
